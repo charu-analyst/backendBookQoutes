@@ -12,7 +12,7 @@ export class userController {
       userName: Joi.string().min(2).max(30).required(),
       email: Joi.string().required(),
       password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
-     confPassword: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
+     confPassword:Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
     });
     try {
       const validatedBody = await schema.validateAsync(req.body);
@@ -42,9 +42,7 @@ export class userController {
   async userLogin(req, res, next) {
     const fields = Joi.object({
       email: Joi.string().required(),
-      password: Joi.string()
-        .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
-        .required(),
+      password:Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
     });
     try {
       const validate = await fields.validateAsync(req.body);
