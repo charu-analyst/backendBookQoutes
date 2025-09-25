@@ -5,7 +5,6 @@ const{createUser,findUser,findUserById,updateUserById}=userServices;
 import * as commonFunction from '../../common/utils.js';
 import responseMessages from '../../../assets/responseMessages.js'
 
-
 export class userController {
    // Create new user
   async userSignup(req, res, next) {
@@ -68,7 +67,7 @@ export class userController {
       return next(error);
     }
   }
-   
+  
  //get user profile detail
   async getProfile(req, res, next) {
     try {
