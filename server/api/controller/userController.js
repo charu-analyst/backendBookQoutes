@@ -11,8 +11,8 @@ export class userController {
     const schema = Joi.object({
       userName: Joi.string().min(2).max(30).required(),
       email: Joi.string().required(),
-      password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
-     confPassword:Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
+     password: Joi.string().pattern(/^[a-zA-Z0-9@]{3,30}$/).required(),
+     confPassword:Joi.string().pattern(/^[a-zA-Z0-9@]{3,30}$/).required(),
     });
     try {
       const validatedBody = await schema.validateAsync(req.body);
@@ -31,7 +31,8 @@ export class userController {
           return res.status(200).json({statusCode:'403',responseMessages:responseMessages.USER_ALREADY_EXIST});
         }
       const result = await createUser(validatedBody);
-      return  res.status(200).json({statusCode:'201',responseMessages:responseMessages.USER_CREATED});
+       const token = await commonFunction.getToken({ _id: result._id });
+      return  res.status(200).json({statusCode:'201',responseMessages:responseMessages.USER_CREATED,data:{result,token}});
     } catch (error) {
       console.log("Error", error);
       return next(error);
@@ -42,7 +43,7 @@ export class userController {
   async userLogin(req, res, next) {
     const fields = Joi.object({
       email: Joi.string().required(),
-      password:Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
+       password: Joi.string().pattern(/^[a-zA-Z0-9@]{3,30}$/).required()
     });
     try {
       const validate = await fields.validateAsync(req.body);
