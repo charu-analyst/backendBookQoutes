@@ -43,7 +43,7 @@ export class userController {
   async userLogin(req, res, next) {
     const fields = Joi.object({
       email: Joi.string().required(),
-       password: Joi.string().pattern(/^[a-zA-Z0-9@]{3,30}$/).required(),
+       password: Joi.string().pattern(/^[a-zA-Z0-9@]{3,30}$/).required()
     });
     try {
       const validate = await fields.validateAsync(req.body);
