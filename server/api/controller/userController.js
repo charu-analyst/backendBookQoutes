@@ -48,7 +48,7 @@ export class userController {
       const validate = await fields.validateAsync(req.body);
       const userResult = await findUser(validate.email);
       if (!userResult) {
-        return res.status(200).json({statusCode:'404',responseMessages:responseMessages.NOT_FOUND});
+        return res.status(200).json({statusCode:'404',responseMessages:responseMessages.USER_NOT_FOUND});
       } else {
         const compare = bcrypt.compareSync(
           validate.password,
