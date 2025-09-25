@@ -59,9 +59,8 @@ export class userController {
           return res.status(200).json({statusCode:'402',responseMessages:responseMessages.INVALID_PASSWORD});
         }
         const token = await commonFunction.getToken({ _id: userResult._id });
-        console.log("token==",token);
         
-       return  res.status(200).json({statusCode:'200',responseMessages:responseMessages.LOGIN_SUCCESS,token});
+       return  res.status(200).json({statusCode:'200',responseMessages:responseMessages.LOGIN_SUCCESS,data:{token,userResult}});
       }
     } catch (error) {
       console.log("Error", error);
